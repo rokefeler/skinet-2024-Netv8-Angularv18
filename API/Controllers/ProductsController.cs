@@ -12,9 +12,10 @@ public class ProductsController(IProductRepository repo) : Controller{
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts(){
-      return await context.Products.ToListAsync();
+      return await repo.GetProductsAsync();
     }
 
+//TODO: continuar finish Lession 21 para el 27-09-2024
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Product>> GetProduct(int id){
       var product = await context.Products.FindAsync(id);
