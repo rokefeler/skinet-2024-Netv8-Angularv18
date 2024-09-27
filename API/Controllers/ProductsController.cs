@@ -1,4 +1,5 @@
 using Core.Entities;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +8,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProductsController(StoreContext context) : Controller{
-    private readonly DbContext _context = context;
+public class ProductsController(IProductRepository repo) : Controller{
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts(){
