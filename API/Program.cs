@@ -19,4 +19,15 @@ var app = builder.Build();
 
 app.MapControllers();
 
+try{
+  using var scope = app.Services.CreateScope();
+  var services = scope.ServiceProvider;
+  var context = services.GetRequiredService<StoreContext>();
+  await context.Database.MigrateAsync(); //migracion, if not exists database will be created
+  Infrastructure.Data.StoreContextSeed.SeedAsync(context).Wait();
+  await StoreContextSeed.SeedAsync(context);
+  Console.WriteLine("Migrated database");
+}catch(Exception ex){
+  Console.WriteLine(ex.Message);
+}
 app.Run();
