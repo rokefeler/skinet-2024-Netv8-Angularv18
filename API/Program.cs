@@ -11,7 +11,8 @@ builder.Services.AddDbContext<StoreContext>(opt => {
   opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+// builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 /****Hasta aqui se consideran los servicios */
 var app = builder.Build();
